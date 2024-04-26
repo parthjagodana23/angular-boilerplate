@@ -6,7 +6,7 @@ import { catchError } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class ApiHandlerService {
+export class ApiHandler {
   constructor(private http: HttpClient) {}
 
   requestCall(api: string, method: ApiMethod, params?: string, data?: any) {
@@ -24,21 +24,25 @@ export class ApiHandlerService {
             .pipe(catchError((err) => this.handleError(err, this)));
         }
         break;
+
       case ApiMethod.POST:
         response = this.http
           .post(`${API_URL}${api}${params}`, data)
           .pipe(catchError((err) => this.handleError(err, this)));
         break;
+
       case ApiMethod.PUT:
         response = this.http
           .put(`${API_URL}${api}${params}`, data)
           .pipe(catchError((err) => this.handleError(err, this)));
         break;
+
       case ApiMethod.DELETE:
         response = this.http
           .delete(`${API_URL}${api}${params}`)
           .pipe(catchError((err) => this.handleError(err, this)));
         break;
+
       default:
         break;
     }

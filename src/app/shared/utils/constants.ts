@@ -11,7 +11,7 @@ export enum ApiMethod {
 }
 
 export const API_ENDPOINTS = {
-  // logIn: 'users/login',
+  logIn: 'users/login',
   // signUp: 'users/signup',
   // resetPassword: 'users/resetPassword/',
   // forgetPassword: 'users/forgotPassword',

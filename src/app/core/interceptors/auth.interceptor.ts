@@ -4,12 +4,11 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable()
-export class JwtInterceptor implements HttpInterceptor {
+export class AuthInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(
@@ -20,7 +19,6 @@ export class JwtInterceptor implements HttpInterceptor {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
-          role: 'vendor',
         },
       });
 
@@ -29,8 +27,6 @@ export class JwtInterceptor implements HttpInterceptor {
           if (error.status === 401 && error.statusText == 'Unauthorized') {
             localStorage.clear();
             window.location.reload();
-          } else {
-            return throwError(() => error);
           }
           return throwError(() => error);
         })
