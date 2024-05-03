@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LayoutComponent } from './core/layout/layout.component';
-import { DashboardComponent } from './modules/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'app',
     pathMatch: 'full',
   },
   {
@@ -14,17 +12,13 @@ const routes: Routes = [
     loadChildren: () => import('./modules/auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: '',
-    component: LayoutComponent,
-    data: { title: 'Home' },
-    children: [
-      {
-        path: 'dashboard',
-        component: DashboardComponent,
-      },
-    ],
+    path: 'app',
+    loadChildren: () => import('./modules/main/main.module').then((m) => m.MainModule),
   },
-  { path: '**', redirectTo: 'dashboard' },
+  { 
+    path: '**', 
+    loadComponent: () => import('./modules/not-found/not-found.component').then((m) => m.NotFoundComponent)
+   },
 ];
 
 @NgModule({
